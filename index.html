@@ -1,0 +1,119 @@
+
+<html>
+<head>
+    <title>Earthquakes </title>
+    <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <script src="jquery-csv.js"></script>
+    <style>
+        body {
+            position: absolute;
+            text-align: center;
+            font-family: "Proxima Nova", "Montserrat", sans-serif;
+        }
+        #sliderContainer {
+            position: relative;
+            top: 600px;
+        }
+        #title h1 {
+            margin-bottom: 0px;
+        }
+        #title p {
+            margin-top: 2px;
+            margin-bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div id="title">
+        <h1>Earthquakes over the last 30 days</h1>
+    </div>
+    <div id="sliderContainer">
+        <input id="timeslide" type="range" min="0" max="29" value="0" step="1"/><br>
+        <span id="range"></span>
+    </div>
+    <script>
+    var width = 920;
+    var height = 580;
+
+    var inputValue = null;
+    var time = ["2000","2004","2008","2012","2016"];
+
+    var svg = d3.select( "body" )
+        .append( "svg" )
+        .attr( "width", width )
+        .attr( "height", height );
+
+    var g = svg.append( "g" );
+
+    var albersProjection = d3.geoAlbersUsa()
+        .scale( 1000 );
+
+    var geoPath = d3.geoPath()
+        .projection( albersProjection );
+
+    g.selectAll( "path" )
+        .data( election_results_json.features )
+        .enter()
+        .append( "path" )
+        .attr( "fill", initialState )
+        .attr( "stroke", "#333")
+        .attr( "d", geoPath );
+
+    // when the input range changes update the rectangle 
+    d3.select("#timeslide").on("input", function() {
+        update(+this.value);
+    });
+
+    function update(value) {
+        document.getElementById("range").innerHTML=time[value];
+        inputValue = time[value];
+        d3.selectAll("path")
+            .style("fill", timeMatch);
+    }
+
+    function timeMatch(data) {
+        if (inputValue == "2000") {
+            if (data.properties.elect2000 == "D") {
+                return '#084594'
+            } else {
+                return '#cb181d'
+            }
+        } else if (inputValue == "2004") {
+            if (data.properties.elect2004 == "D") {
+                return '#084594'
+            } else {
+                return '#cb181d'
+            }
+        } else if (inputValue == "2008") {
+            if (data.properties.elect2008 == "D") {
+                return '#084594'
+            } else {
+                return '#cb181d'
+            }
+        } else if (inputValue == "2012") {
+            if (data.properties.elect2012 == "D") {
+                return '#084594'
+            } else {
+                return '#cb181d'
+            }
+        } else if (inputValue == "2016") {
+            if (data.properties.elect2016 == "D") {
+                return '#084594'
+            } else {
+                return '#cb181d'
+            }
+        };
+    }
+
+    function initialState(data){
+        if (document.getElementById("range").innerHTML == 2000) {
+            if (data.properties.elect2000 == "D") {
+                return '#084594'
+            } else {
+                return '#cb181d'
+            }
+        };
+    }
+    </script>
+</body>
+</html>
