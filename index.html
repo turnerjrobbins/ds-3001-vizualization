@@ -1,73 +1,55 @@
-
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Earthquakes </title>
-    //<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="http://d3js.org/topojson.v1.min.js"></script>
+<meta charset="utf-8">
+<title>Point on a map D3</title>
 
-    <style>
-        body {
-            position: absolute;
-            text-align: center;
-            font-family: "Proxima Nova", "Montserrat", sans-serif;
-        }
-        #sliderContainer {
-            position: relative;
-            top: 600px;
-        }
-        #title h1 {
-            margin-bottom: 0px;
-        }
-        #title p {
-            margin-top: 2px;
-            margin-bottom: 0px;
-        }
-    </style>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
+<style type="text/css">
+    .feature {
+        fill: none;
+        stroke: grey;
+        stroke-width: 1px;
+        stroke-linejoin: round;
+    }
+    .mesh {
+        fill: none;
+        stroke: lightgrey;
+        stroke-width: 2px;
+        stroke-linejoin: round;
+    }
+    h1 {
+        font-family: sans-serif;
+    }
+</style>
 </head>
 <body>
-    <div id="title">
-        <h1>Earthquakes over the last 30 days</h1>
-    </div>
-    <div id="sliderContainer">
-        <input id="timeslide" type="range" min="0" max="29" value="0" step="1"/><br>
-        <span id="range"></span>
-    </div>
-    <script>
-    //import the CSV
-    d3.csv("/data/cities.csv", function(d) {
-        return {
-            time        : d.time;
-            latitude    : +d.latitude;
-            longitude   : +d.longitude;
-            mag         : +d.mag;
-        };
-    }, function(data) {
-        console.log(data[0]);
-    });
+    <h1>Point in the north west part of SF</h1>
 
-    var width = 920;
-    var height = 580;
 
-    // set projection
-    var projection = d3.geo.mercator();
+<script type="text/javascript">
 
-    // create path variable
-    var path = d3.geo.path()
-        .projection(projection);
+var width = 950,
+    height = 550;
 
-    d3.json("us.json", function(error, topo) { console.log(topo);
+// set projection
+var projection = d3.geo.mercator();
 
-        states = topojson.feature(topo, topo.objects.states).features
+// create path variable
+var path = d3.geo.path()
+    .projection(projection);
 
-        // set projection parameters
-        projection
-          .scale(1000)
 
-    // when the input range changes update all points 
-    d3.select("#timeslide").on("input", function() {
-        update(+this.value);
-    });
+d3.json("us.json", function(error, topo) { console.log(topo);
+
+    states = topojson.feature(topo, topo.objects.states).features
+
+    // set projection parameters
+    projection
+      .scale(1000)
+      .center([-106, 37.5])
 
     // create svg variable
     var svg = d3.select("body").append("svg")
@@ -105,56 +87,7 @@
 
 });
 
-    function update(value) {
-        document.getElementById("range").innerHTML=time[value];
-        inputValue = time[value];
-        d3.selectAll("path")
-            .style("fill", timeMatch);
-    }
-
-    function timeMatch(data) {
-        if (inputValue == "2000") {
-            if (data.properties.elect2000 == "D") {
-                return '#084594'
-            } else {
-                return '#cb181d'
-            }
-        } else if (inputValue == "2004") {
-            if (data.properties.elect2004 == "D") {
-                return '#084594'
-            } else {
-                return '#cb181d'
-            }
-        } else if (inputValue == "2008") {
-            if (data.properties.elect2008 == "D") {
-                return '#084594'
-            } else {
-                return '#cb181d'
-            }
-        } else if (inputValue == "2012") {
-            if (data.properties.elect2012 == "D") {
-                return '#084594'
-            } else {
-                return '#cb181d'
-            }
-        } else if (inputValue == "2016") {
-            if (data.properties.elect2016 == "D") {
-                return '#084594'
-            } else {
-                return '#cb181d'
-            }
-        };
-    }
-
-    function initialState(data){
-        if (document.getElementById("range").innerHTML == 2000) {
-            if (data.properties.elect2000 == "D") {
-                return '#084594'
-            } else {
-                return '#cb181d'
-            }
-        };
-    }
-    </script>
+</script>
+    
 </body>
 </html>
