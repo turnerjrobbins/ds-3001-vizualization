@@ -42,9 +42,6 @@ var projection = d3.geo.mercator();
 var path = d3.geo.path()
     .projection(projection);
 
-
-var points = [];
-
 d3.csv("latsnlongs.csv", function(data) {
   var points = [];
   data.forEach(function(d) {
