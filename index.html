@@ -44,7 +44,7 @@ var path = d3.geo.path()
 
 d3.json("us.json", function(error, topo) {
 
-    states = topojson.feature(topo, topo.objects.states).features
+    states = topo.json.feature(topo, topo.objects.states).features
 
     // set projection parameters
     projection
