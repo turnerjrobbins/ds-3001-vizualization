@@ -6,7 +6,6 @@
 
 <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
-<script src="javascripts/d3.slider.js"></script>
 
 <style type="text/css">
   .feature {
@@ -46,14 +45,15 @@ var path = d3.geo.path()
 
 var points = [];
 
-d3.csv("query.csv", function(data) {
-    data.forEach(function(d) {
-      points.push([+d.latitude, +d.longitude])
-    });
-    doThing();
+d3.csv("/data/cities.csv", function(data) {
+  var points = [];
+  data.forEach(function(d) {
+    points.push([+d.latitude, +d.longitude]);
+  });
+  doThing(points);
 });
 
-function doThing() {
+function doThing(points) {
   d3.json("us.json", function(error, topo) { console.log(topo);
 
     states = topojson.feature(topo, topo.objects.states).features
