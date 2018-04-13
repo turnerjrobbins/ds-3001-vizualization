@@ -46,7 +46,9 @@ d3.csv("latsnlongs.csv", function(data) {
   var points = [];
   data.forEach(
       function(d) {
-        points.push([d.latitude, d.longitude]);
+        d.longitude = +d.longitude;
+        d.latitude = +d.latitude;
+        points.push([d.longitude, d.latitude]);
       });
   console.log(points[0])
   doThing(points);
