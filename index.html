@@ -44,7 +44,7 @@ var path = d3.geo.path()
     .projection(projection);
 
 
-var points;
+var points = [];
 
 d3.csv("query.csv", function(data) {
     data.forEach(function(d) {
