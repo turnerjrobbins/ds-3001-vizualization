@@ -46,7 +46,7 @@ d3.csv("latsnlongs.csv", function(data) {
   var points = [[-118.0,33.0]];
   data.forEach(
       function(d) {
-        d.longitude = -d.longitude;
+        d.longitude = +d.longitude;
         d.latitude = +d.latitude;
         points.push([d.longitude, d.latitude]);
       });
@@ -62,7 +62,6 @@ function doThing(points) {
     // set projection parameters
     projection
       .scale(1000)
-      .center([-106, 37.5])
 
     // create svg variable
     var svg = d3.select("body").append("svg")
