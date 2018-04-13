@@ -6,6 +6,7 @@
 
 <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
+<script src="javascripts/d3.slider.js"></script>
 
 <style type="text/css">
   .feature {
@@ -28,7 +29,8 @@
 <body>
   <h1>Point in the north west part of SF</h1>
 
-
+ <div id="slider">
+</div> 
 <script type="text/javascript">
 
 var width = 950,
@@ -87,7 +89,7 @@ d3.json("us.json", function(error, topo) { console.log(topo);
 
 });
 
-d3.slider().on("slide", function(evt, value) {
+d3.slider().on("slider", function(evt, value) {
   d3.select('#slider3text').text(value);
 });
 
