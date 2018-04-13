@@ -45,10 +45,10 @@ var path = d3.geo.path()
 
 var points = [];
 
-d3.csv("query.csv", function(data) {
+d3.csv("latsnlongs.csv", function(data) {
   var points = [];
   data.forEach(function(d) {
-    points.push([d.latitude, d.longitude]);
+    points.push([+d.latitude, -d.longitude]);
   });
   doThing(points);
 });
