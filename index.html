@@ -48,6 +48,7 @@ d3.csv("latsnlongs.csv", function(data) {
       function(d) {
         points.push([d.latitude, d.longitude]);
       });
+  console.log(points[0])
   doThing(points);
 });
 
@@ -69,7 +70,7 @@ function doThing(points) {
     // points
     d3.csv
 
-  console.log(projection(points[0]),projection(points[1]));
+  //console.log(projection(points[0]),projection(points[1]));
 
   // add states from topojson
   svg.selectAll("path")
