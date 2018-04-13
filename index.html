@@ -32,37 +32,45 @@
         <span id="range"></span>
     </div>
     <script>
+    //import the CSV
+    d3.csv("/data/cities.csv", function(d) {
+        return {
+            time        : d.time;
+            latitude    : +d.latitude;
+            longitude   : +d.longitude;
+            mag         : +d.mag;
+        };
+    }, function(data) {
+        console.log(data[0]);
+    });
+
     var width = 920;
     var height = 580;
 
-    var inputValue = null;
-    var time = ["2000","2004","2008","2012","2016"];
+    // set projection
+    var projection = d3.geo.mercator();
 
-    var svg = d3.select( "body" )
-        .append( "svg" )
-        .attr( "width", width )
-        .attr( "height", height );
+    // create path variable
+    var path = d3.geo.path()
+        .projection(projection);
 
-    var g = svg.append( "g" );
+    d3.json("us.json", function(error, topo) { console.log(topo);
 
-    var albersProjection = d3.geoAlbersUsa()
-        .scale( 1000 );
+        states = topojson.feature(topo, topo.objects.states).features
 
-    var geoPath = d3.geoPath()
-        .projection( albersProjection );
+        // set projection parameters
+        projection
+          .scale(1000)
 
-    g.selectAll( "path" )
-        .data( election_results_json.features )
-        .enter()
-        .append( "path" )
-        .attr( "fill", initialState )
-        .attr( "stroke", "#333")
-        .attr( "d", geoPath );
-
-    // when the input range changes update the rectangle 
+    // when the input range changes update all points 
     d3.select("#timeslide").on("input", function() {
         update(+this.value);
     });
+
+    // create svg variable
+    var svg = d3.select("body").append("svg")
+                    .attr("width", width)
+                    .attr("height", height);
 
     function update(value) {
         document.getElementById("range").innerHTML=time[value];
