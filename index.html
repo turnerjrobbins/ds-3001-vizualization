@@ -61,7 +61,8 @@ function doThing(points) {
 
     // set projection parameters
     projection
-      .scale(1000)
+      .scale(100)
+      .center([-118, 30])
 
     // create svg variable
     var svg = d3.select("body").append("svg")
