@@ -72,6 +72,12 @@
                     .attr("width", width)
                     .attr("height", height);
 
+    // points
+    aa = [-122.490402, 37.786453];
+    bb = [-122.389809, 37.72728];
+
+    console.log(projection(aa),projection(bb));
+
     // add states from topojson
     svg.selectAll("path")
       .data(states).enter()
