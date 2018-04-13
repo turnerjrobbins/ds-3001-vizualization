@@ -50,7 +50,7 @@ d3.csv("latsnlongs.csv", function(data) {
         d.latitude = +d.latitude;
         points.push([d.longitude, d.latitude]);
       });
-  console.log(points[0])
+  console.log(points)
   doThing(points);
 });
 
@@ -72,7 +72,7 @@ function doThing(points) {
     // points
     d3.csv
 
-  //console.log(projection(points[0]),projection(points[1]));
+  console.log(projection(points[0]),projection(points[1]));
 
   // add states from topojson
   svg.selectAll("path")
@@ -92,9 +92,9 @@ function doThing(points) {
     svg.selectAll("circle")
     .data(points).enter()
     .append("circle")
-    //.attr("cx", function (d) { console.log(projection(d)); return projection(d)[0]; })
-    //.attr("cy", function (d) { return projection(d)[1]; })
-    .attr("r", "8px")
+    .attr("cx", function (d) { console.log(projection(d)); return projection(d)[0]; })
+    .attr("cy", function (d) { return projection(d)[1]; })
+    .attr("r", "1px")
     .attr("fill", "red")
   });  
 }
